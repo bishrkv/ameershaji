@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | Ameer Shaji</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; font-family: 'Inter', sans-serif; background: #050505; color: #fff; }
+    .gallery-card { position: relative; overflow: hidden; border-radius: 1.75rem; cursor: pointer; }
+    .gallery-card img { transition: transform 0.35s ease, filter 0.35s ease; }
+    .gallery-card:hover img { transform: scale(1.04); filter: brightness(0.9) saturate(1.02); }
+    .gallery-card.is-active { border-color: rgba(96,165,250,0.9); box-shadow: 0 0 0 1px rgba(96,165,250,0.35); }
+    .gallery-caption {
+      position: static;
+      padding: 0.9rem 0.15rem 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      color: #f8fafc;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      letter-spacing: 0.01em;
+      text-align: left;
+      border-radius: 0.75rem;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      transform: none;
+      opacity: 1;
+      pointer-events: auto;
+      margin-top: 0.25rem;
+    }
+    .gallery-admin-card.drag-over {
+      border-color: rgba(96, 165, 250, 0.9) !important;
+      box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.35);
+    }
+    .gallery-admin-card.dragging {
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen px-6 py-10 md:px-10">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-10">
+        <div>
+          <h1 class="text-4xl font-oswald font-light">Admin Dashboard</h1>
+          <p class="mt-3 text-neutral-400 max-w-2xl">Add new gallery images and captions. Changes are saved permanently in JSON storage.</p>
+        </div>
+        <button id="adminLogout" class="inline-flex items-center gap-2 rounded-2xl bg-white/5 border border-white/10 px-5 py-3 text-sm text-white hover:bg-white/10 transition">
+          <i data-lucide="log-out" class="w-4 h-4"></i>
+          Logout
+        </button> 
+      </div>
+
+      <div class="grid grid-cols-1 xl:grid-cols-[1.3fr_0.9fr] gap-8">
+        <div class="space-y-8">
+          <div class="bg-[#0A0A0A] border border-white/10 rounded-3xl p-8">
+          <h2 class="text-2xl font-oswald font-light mb-6">Add New Gallery Item</h2>
+          <form id="galleryAddForm" class="space-y-4">
+            <div>
+              <label class="block text-sm text-neutral-400 mb-2">Image URL</label>
+              <input id="imageUrl" type="url" placeholder="https://example.com/photo.jpg" required class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-white outline-none focus:border-blue-500/50" />
+            </div>
+            <div>
+              <label class="block text-sm text-neutral-400 mb-2">Caption</label>
+              <textarea id="imageCaption" rows="4" placeholder="Enter a caption for the image" required class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-white outline-none focus:border-blue-500/50"></textarea>
+            </div>
+            <button class="w-full rounded-2xl bg-blue-600 hover:bg-blue-500 py-3 text-white font-semibold">Save Image</button>
+            <p id="adminMessage" class="text-sm hidden text-green-400"></p>
+          </form>
+        </div>
+
+          <div class="bg-[#0A0A0A] border border-white/10 rounded-3xl p-8">
+            <h2 class="text-2xl font-oswald font-light mb-6">Add New Review</h2>
+            <form id="reviewAddForm" class="space-y-4">
+              <div>
+                <label class="block text-sm text-neutral-400 mb-2">Name</label>
+                <input id="reviewName" type="text" placeholder="Person name" required class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-white outline-none focus:border-blue-500/50" />
+              </div>
+              <div>
+                <label class="block text-sm text-neutral-400 mb-2">Role</label>
+                <input id="reviewRole" type="text" placeholder="Role or organization" required class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-white outline-none focus:border-blue-500/50" />
+              </div>
+              <div>
+                <label class="block text-sm text-neutral-400 mb-2">Review</label>
+                <textarea id="reviewText" rows="4" placeholder="Enter review text" required class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-white outline-none focus:border-blue-500/50"></textarea>
+              </div>
+              <div>
+                <label class="block text-sm text-neutral-400 mb-2">Image URL (optional)</label>
+                <input id="reviewImage" type="url" placeholder="https://example.com/photo.jpg" class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-white outline-none focus:border-blue-500/50" />
+              </div>
+              <button class="w-full rounded-2xl bg-purple-600 hover:bg-purple-500 py-3 text-white font-semibold">Save Review</button>
+              <p id="reviewMessage" class="text-sm hidden text-green-400"></p>
+            </form>
+          </div>
+        </div>
+
+        <div class="space-y-8">
+          <div class="bg-[#0A0A0A] border border-white/10 rounded-3xl p-8">
+            <div class="flex items-center justify-between gap-3 mb-6">
+              <h2 class="text-2xl font-oswald font-light">Current Gallery Items</h2>
+              <span class="text-sm text-neutral-400">Drag or use arrows to reorder</span>
+            </div>
+            <div id="galleryAdminList" class="space-y-4"></div>
+          </div>
+
+          <div class="bg-[#0A0A0A] border border-white/10 rounded-3xl p-8">
+            <h2 class="text-2xl font-oswald font-light mb-6">Current Reviews</h2>
+            <div id="reviewsAdminList" class="space-y-4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function guardAdmin() {
+      const access = localStorage.getItem('admin_access');
+      if (access !== 'true') {
+        window.location.href = 'index.html';
+      }
+    }
+
+    async function fetchGallery() {
+      const response = await fetch('/api/gallery');
+      if (!response.ok) throw new Error('Gallery load failed');
+      return response.json();
+    }
+
+    async function reorderGalleryItem(fromIndex, toIndex) {
+      const response = await fetch('/api/gallery/reorder', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fromIndex, toIndex })
+      });
+      if (!response.ok) {
+        throw new Error('Unable to reorder gallery items');
+      }
+      await renderGalleryAdmin();
+    }
+
+    async function renderGalleryAdmin() {
+      const wrapper = document.getElementById('galleryAdminList');
+      wrapper.innerHTML = '<div class="text-neutral-400">Loading gallery…</div>';
+      try {
+        const items = await fetchGallery();
+        wrapper.innerHTML = items.length ? items.map((item, index) => `
+          <div class="gallery-admin-card bg-white/5 border border-white/10 rounded-3xl overflow-hidden" data-index="${index}" draggable="true">
+            <div class="gallery-card">
+              <img src="${item.image}" alt="${item.caption}" class="w-full h-48 object-cover">
+              <div class="gallery-caption">${item.caption}</div>
+            </div>
+            <div class="p-4 space-y-4">
+              <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-sm text-neutral-300">Position</span>
+                  <input type="number" min="1" max="${items.length}" value="${index + 1}" class="position-input w-16 rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-sm text-white outline-none" data-index="${index}" />
+                </div>
+                <label class="inline-flex items-center gap-2 text-sm text-neutral-300">
+                  <input type="checkbox" class="visibility-toggle" data-index="${index}" ${item.visible !== false ? 'checked' : ''} />
+                  Show on home
+                </label>
+              </div>
+              <div class="grid gap-3">
+                <input data-type="image" data-index="${index}" value="${item.image}" disabled class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-white outline-none" />
+                <textarea data-type="caption" data-index="${index}" rows="3" disabled class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-white outline-none">${item.caption}</textarea>
+              </div>
+              <div class="flex flex-wrap items-center gap-3">
+                <button type="button" data-index="${index}" class="position-button rounded-2xl bg-white/10 px-3 py-2 text-sm text-white hover:bg-white/20 transition">Apply Position</button>
+                <button type="button" data-index="${index}" class="edit-button rounded-2xl bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-500 transition">Edit</button>
+                <button type="button" data-index="${index}" class="save-button hidden rounded-2xl bg-emerald-600 px-4 py-2 text-sm text-white hover:bg-emerald-500 transition">Save</button>
+                <button type="button" data-index="${index}" class="cancel-button hidden rounded-2xl bg-neutral-700 px-4 py-2 text-sm text-white hover:bg-neutral-600 transition">Cancel</button>
+                <button type="button" data-index="${index}" class="delete-button rounded-2xl bg-red-600/90 px-4 py-2 text-sm text-white hover:bg-red-500 transition">Delete</button>
+              </div>
+            </div>
+          </div>
+        `).join('') : '<div class="text-neutral-400">No gallery items yet.</div>';
+
+        async function updateGalleryItem(index, patchData) {
+          const response = await fetch(`/api/gallery/${index}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(patchData)
+          });
+          if (!response.ok) {
+            const errorBody = await response.json().catch(() => ({}));
+            throw new Error(errorBody.error || 'Unable to update gallery item');
+          }
+          return response.json();
+        }
+
+        document.querySelectorAll('.delete-button').forEach(button => {
+          button.addEventListener('click', async () => {
+            const index = button.dataset.index;
+            await fetch(`/api/gallery/${index}`, { method: 'DELETE' });
+            renderGalleryAdmin();
+          });
+        });
+
+        document.querySelectorAll('.visibility-toggle').forEach(toggle => {
+          toggle.addEventListener('change', async () => {
+            const index = toggle.dataset.index;
+            await updateGalleryItem(index, { visible: toggle.checked });
+            renderGalleryAdmin();
+          });
+        });
+
+        document.querySelectorAll('.position-button').forEach(button => {
+          button.addEventListener('click', async () => {
+            const card = button.closest('.gallery-admin-card');
+            const index = Number(button.dataset.index);
+            const input = card.querySelector(`.position-input[data-index="${index}"]`);
+            const targetIndex = Number(input.value) - 1;
+            if (!Number.isNaN(targetIndex) && targetIndex >= 0 && targetIndex < items.length && targetIndex !== index) {
+              await reorderGalleryItem(index, targetIndex);
+            }
+          });
+        });
+
+        document.querySelectorAll('.gallery-admin-card').forEach(card => {
+          card.addEventListener('dragstart', (event) => {
+            card.classList.add('dragging');
+            if (event.dataTransfer) {
+              event.dataTransfer.effectAllowed = 'move';
+              event.dataTransfer.setData('text/plain', String(card.dataset.index));
+            } else {
+              window._galleryDraggedIndex = String(card.dataset.index);
+            }
+          });
+
+          card.addEventListener('dragend', () => {
+            document.querySelectorAll('.gallery-admin-card').forEach(item => item.classList.remove('drag-over', 'dragging'));
+            delete window._galleryDraggedIndex;
+          });
+
+          card.addEventListener('dragover', event => {
+            event.preventDefault();
+            if (event.dataTransfer) {
+              event.dataTransfer.dropEffect = 'move';
+            }
+            card.classList.add('drag-over');
+          });
+
+          card.addEventListener('dragleave', () => {
+            card.classList.remove('drag-over');
+          });
+
+          card.addEventListener('drop', async event => {
+            event.preventDefault();
+            card.classList.remove('drag-over');
+            let fromIndex = NaN;
+            if (event.dataTransfer) {
+              fromIndex = Number(event.dataTransfer.getData('text/plain'));
+            }
+            if (Number.isNaN(fromIndex) && window._galleryDraggedIndex !== undefined) {
+              fromIndex = Number(window._galleryDraggedIndex);
+            }
+            const toIndex = Number(card.dataset.index);
+            if (!Number.isNaN(fromIndex) && !Number.isNaN(toIndex) && fromIndex !== toIndex) {
+              await reorderGalleryItem(fromIndex, toIndex);
+            }
+          });
+        });
+
+        document.querySelectorAll('.edit-button').forEach(button => {
+          button.addEventListener('click', () => {
+            const index = button.dataset.index;
+            const card = button.closest('.gallery-admin-card');
+            const imageInput = card.querySelector(`input[data-type="image"][data-index="${index}"]`);
+            const captionInput = card.querySelector(`textarea[data-type="caption"][data-index="${index}"]`);
+            const saveButton = card.querySelector(`.save-button[data-index="${index}"]`);
+            const cancelButton = card.querySelector(`.cancel-button[data-index="${index}"]`);
+
+            imageInput.disabled = false;
+            captionInput.disabled = false;
+            button.classList.add('hidden');
+            saveButton.classList.remove('hidden');
+            cancelButton.classList.remove('hidden');
+          });
+        });
+
+        document.querySelectorAll('.cancel-button').forEach(button => {
+          button.addEventListener('click', () => {
+            renderGalleryAdmin();
+          });
+        });
+
+        document.querySelectorAll('.save-button').forEach(button => {
+          button.addEventListener('click', async () => {
+            const index = button.dataset.index;
+            const card = button.closest('.gallery-admin-card');
+            const imageInput = card.querySelector(`input[data-type="image"][data-index="${index}"]`);
+            const captionInput = card.querySelector(`textarea[data-type="caption"][data-index="${index}"]`);
+            const visibleToggle = card.querySelector(`.visibility-toggle[data-index="${index}"]`);
+
+            const image = imageInput.value.trim();
+            const caption = captionInput.value.trim();
+            const visible = visibleToggle ? visibleToggle.checked : true;
+
+            if (!image || !caption) {
+              alert('Image URL and caption are required.');
+              return;
+            }
+
+            try {
+              await updateGalleryItem(index, { image, caption, visible });
+              renderGalleryAdmin();
+            } catch (error) {
+              alert('Save failed: ' + (error && error.message ? error.message : String(error)));
+            }
+          });
+        });
+      } catch (error) {
+        wrapper.innerHTML = '<div class="text-red-400">Unable to load gallery.</div>';
+      }
+    }
+
+    async function fetchReviews() {
+      const response = await fetch('/api/reviews');
+      if (!response.ok) throw new Error('Reviews load failed');
+      return response.json();
+    }
+
+    async function renderReviewsAdmin() {
+      const wrapper = document.getElementById('reviewsAdminList');
+      wrapper.innerHTML = '<div class="text-neutral-400">Loading reviews…</div>';
+      try {
+        const reviews = await fetchReviews();
+        wrapper.innerHTML = reviews.length ? reviews.map((review, index) => `
+          <div class="bg-white/5 border border-white/10 rounded-3xl p-4 space-y-4">
+            <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+              <span class="text-sm text-neutral-300">Review ${index + 1}</span>
+              <div class="flex flex-wrap items-center gap-3">
+                <button data-index="${index}" class="edit-review-button rounded-2xl bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-500 transition">Edit</button>
+                <button data-index="${index}" class="save-review-button hidden rounded-2xl bg-emerald-600 px-4 py-2 text-sm text-white hover:bg-emerald-500 transition">Save</button>
+                <button data-index="${index}" class="cancel-review-button hidden rounded-2xl bg-neutral-700 px-4 py-2 text-sm text-white hover:bg-neutral-600 transition">Cancel</button>
+                <button data-index="${index}" class="delete-review-button rounded-2xl bg-red-600/90 px-4 py-2 text-sm text-white hover:bg-red-500 transition">Delete</button>
+              </div>
+            </div>
+            <div class="grid gap-3">
+              <input data-type="name" data-index="${index}" value="${review.name}" disabled class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-white outline-none" />
+              <input data-type="role" data-index="${index}" value="${review.role}" disabled class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-white outline-none" />
+              <textarea data-type="text" data-index="${index}" rows="3" disabled class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-white outline-none">${review.text}</textarea>
+              <input data-type="image" data-index="${index}" value="${review.image || ''}" disabled class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-white outline-none" />
+            </div>
+          </div>
+        `).join('') : '<div class="text-neutral-400">No reviews yet.</div>';
+
+        document.querySelectorAll('.delete-review-button').forEach(button => {
+          button.addEventListener('click', async () => {
+            const index = button.dataset.index;
+            await fetch(`/api/reviews/${index}`, { method: 'DELETE' });
+            renderReviewsAdmin();
+          });
+        });
+
+        document.querySelectorAll('.edit-review-button').forEach(button => {
+          button.addEventListener('click', () => {
+            const index = button.dataset.index;
+            const container = button.closest('.bg-white/5');
+            const nameInput = container.querySelector(`input[data-type="name"][data-index="${index}"]`);
+            const roleInput = container.querySelector(`input[data-type="role"][data-index="${index}"]`);
+            const textInput = container.querySelector(`textarea[data-type="text"][data-index="${index}"]`);
+            const imageInput = container.querySelector(`input[data-type="image"][data-index="${index}"]`);
+            const saveButton = container.querySelector(`.save-review-button[data-index="${index}"]`);
+            const cancelButton = container.querySelector(`.cancel-review-button[data-index="${index}"]`);
+
+            nameInput.disabled = false;
+            roleInput.disabled = false;
+            textInput.disabled = false;
+            imageInput.disabled = false;
+            button.classList.add('hidden');
+            saveButton.classList.remove('hidden');
+            cancelButton.classList.remove('hidden');
+          });
+        });
+
+        document.querySelectorAll('.cancel-review-button').forEach(button => {
+          button.addEventListener('click', () => {
+            renderReviewsAdmin();
+          });
+        });
+
+        document.querySelectorAll('.save-review-button').forEach(button => {
+          button.addEventListener('click', async () => {
+            const index = button.dataset.index;
+            const container = button.closest('.bg-white/5');
+            const nameInput = container.querySelector(`input[data-type="name"][data-index="${index}"]`);
+            const roleInput = container.querySelector(`input[data-type="role"][data-index="${index}"]`);
+            const textInput = container.querySelector(`textarea[data-type="text"][data-index="${index}"]`);
+            const imageInput = container.querySelector(`input[data-type="image"][data-index="${index}"]`);
+
+            const name = nameInput.value.trim();
+            const role = roleInput.value.trim();
+            const text = textInput.value.trim();
+            const image = imageInput.value.trim();
+
+            await fetch(`/api/reviews/${index}`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name, role, text, image })
+            });
+            renderReviewsAdmin();
+          });
+        });
+      } catch (error) {
+        wrapper.innerHTML = '<div class="text-red-400">Unable to load reviews.</div>';
+      }
+    }
+
+    document.getElementById('galleryAddForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const image = document.getElementById('imageUrl').value.trim();
+      const caption = document.getElementById('imageCaption').value.trim();
+      const message = document.getElementById('adminMessage');
+
+      try {
+        const response = await fetch('/api/gallery', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image, caption })
+        });
+        if (!response.ok) {
+          throw new Error('Unable to save image');
+        }
+        document.getElementById('galleryAddForm').reset();
+        message.textContent = 'Image added successfully.';
+        message.classList.remove('hidden');
+        setTimeout(() => message.classList.add('hidden'), 3000);
+        renderGalleryAdmin();
+      } catch (error) {
+        message.textContent = 'Save failed. Check the image URL and try again.';
+        message.classList.remove('hidden');
+        message.classList.replace('text-green-400', 'text-red-400');
+      }
+    });
+
+    document.getElementById('reviewAddForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const name = document.getElementById('reviewName').value.trim();
+      const role = document.getElementById('reviewRole').value.trim();
+      const text = document.getElementById('reviewText').value.trim();
+      const image = document.getElementById('reviewImage').value.trim();
+      const message = document.getElementById('reviewMessage');
+
+      try {
+        const response = await fetch('/api/reviews', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, role, text, image })
+        });
+        if (!response.ok) {
+          throw new Error('Unable to save review');
+        }
+        document.getElementById('reviewAddForm').reset();
+        message.textContent = 'Review added successfully.';
+        message.classList.remove('hidden');
+        setTimeout(() => message.classList.add('hidden'), 3000);
+        renderReviewsAdmin();
+      } catch (error) {
+        message.textContent = 'Save failed. Please complete all required review fields.';
+        message.classList.remove('hidden');
+        message.classList.replace('text-green-400', 'text-red-400');
+      }
+    });
+
+    document.getElementById('adminLogout').addEventListener('click', () => {
+      localStorage.removeItem('admin_access');
+      window.location.href = 'index.html';
+    });
+
+    guardAdmin();
+    renderGalleryAdmin();
+    renderReviewsAdmin();
+  </script>
+</body>
+</html>

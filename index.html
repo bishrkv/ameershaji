@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ameer Shaji — Social Entrepreneur</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            inter: ['Inter', 'sans-serif'],
+            oswald: ['Oswald', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #050505; color: #fff; overflow-x: hidden; }
+    
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0A0A0A; }
+    ::-webkit-scrollbar-thumb { background: #2563EB; border-radius: 3px; }
+
+    @keyframes fadeInUpBlur {
+      0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    .anim-in { opacity: 0; }
+    .anim-in.visible {
+      animation: fadeInUpBlur 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+    .delay-100 { animation-delay: 100ms !important; }
+    .delay-200 { animation-delay: 200ms !important; }
+    .delay-300 { animation-delay: 300ms !important; }
+    .delay-400 { animation-delay: 400ms !important; }
+    .delay-500 { animation-delay: 500ms !important; }
+    .delay-600 { animation-delay: 600ms !important; }
+    .delay-700 { animation-delay: 700ms !important; }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(59,130,246,0.3); }
+      50% { box-shadow: 0 0 40px rgba(59,130,246,0.6); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+    .float-anim { animation: float 6s ease-in-out infinite; }
+    .float-anim-delay { animation: float 6s ease-in-out 2s infinite; }
+
+    .grid-bg {
+      background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, #60A5FA, #A855F7, #F97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card-glow { transition: all 0.4s ease; }
+    .card-glow:hover { box-shadow: 0 0 30px rgba(59,130,246,0.15), inset 0 0 20px rgba(59,130,246,0.05); }
+
+    .gallery-card { position: relative; overflow: hidden; border-radius: 1.75rem; cursor: pointer; }
+    .gallery-card img { transition: transform 0.35s ease, filter 0.35s ease; }
+    .gallery-card:hover img { transform: scale(1.04); filter: brightness(0.9) saturate(1.02); }
+    .gallery-card.is-active { border-color: rgba(96,165,250,0.9); box-shadow: 0 0 0 1px rgba(96,165,250,0.35); }
+    .gallery-caption {
+      position: static;
+      padding: 0.9rem 0.15rem 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      color: #f8fafc;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      letter-spacing: 0.01em;
+      text-align: left;
+      border-radius: 0.75rem;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      transform: none;
+      opacity: 1;
+      pointer-events: auto;
+      margin-top: 0.25rem;
+    }
+    .footer-admin-trigger { cursor: pointer; text-decoration: none; }
+
+    .stars {
+      background-image: 
+        radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+        radial-gradient(1px 1px at 40px 70px, #fff, transparent),
+        radial-gradient(1px 1px at 50px 160px, #fff, transparent),
+        radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+        radial-gradient(1px 1px at 130px 80px, #fff, transparent),
+        radial-gradient(1px 1px at 160px 120px, #fff, transparent);
+      background-size: 200px 200px;
+      opacity: 0.15;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
+    .mobile-menu.open { transform: translateX(0); }
+
+    .progress-fill { transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+    .toast {
+      transform: translateY(100px); opacity: 0;
+      transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+  </style>
+</head>
+<body class="font-inter">
+
+  <!-- Background Effects -->
+  <div class="fixed inset-0 stars pointer-events-none z-0"></div>
+  <div class="fixed top-[-200px] left-[-200px] w-[600px] h-[600px] rounded-full bg-blue-600/10 blur-[120px] pointer-events-none z-0"></div>
+  <div class="fixed bottom-[-200px] right-[-200px] w-[500px] h-[500px] rounded-full bg-purple-600/10 blur-[120px] pointer-events-none z-0"></div>
+
+  <!-- Navigation -->
+  <nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-50">
+    <div class="bg-[#0A0A0A]/80 backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-3 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+          <span class="font-oswald font-bold text-sm">AS</span>
+        </div>
+        <span class="font-oswald font-light text-lg tracking-tight">Ameer Shaji</span>
+      </a>
+      <div class="hidden md:flex items-center gap-1">
+        <a href="#about" class="px-4 py-2 text-sm text-neutral-400 hover:text-white hover:bg-white/5 rounded-lg transition-all">About</a>
+        <a href="#impact" class="px-4 py-2 text-sm text-neutral-400 hover:text-white hover:bg-white/5 rounded-lg transition-all">Impact</a>
+        <a href="#ventures" class="px-4 py-2 text-sm text-neutral-400 hover:text-white hover:bg-white/5 rounded-lg transition-all">Ventures</a>
+        <a href="gallery.html" class="px-4 py-2 text-sm text-neutral-400 hover:text-white hover:bg-white/5 rounded-lg transition-all">Gallery</a>
+        <a href="#testimonials" class="px-4 py-2 text-sm text-neutral-400 hover:text-white hover:bg-white/5 rounded-lg transition-all">Voices</a>
+      </div>
+      <div class="hidden md:flex items-center gap-3">
+        <a href="#contact" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium rounded-xl transition-all hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(37,99,235,0.3)]">
+          Let's Connect
+        </a>
+      </div>
+      <button id="mobileToggle" class="md:hidden text-white p-2">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu fixed inset-0 bg-[#050505]/95 backdrop-blur-xl z-[60] flex flex-col items-center justify-center gap-6">
+    <button id="mobileClose" class="absolute top-6 right-6 text-white p-2">
+      <i data-lucide="x" class="w-6 h-6"></i>
+    </button>
+    <a href="#about" class="text-2xl font-oswald font-light text-neutral-300 hover:text-white transition-colors mobile-link">About</a>
+    <a href="#impact" class="text-2xl font-oswald font-light text-neutral-300 hover:text-white transition-colors mobile-link">Impact</a>
+    <a href="#ventures" class="text-2xl font-oswald font-light text-neutral-300 hover:text-white transition-colors mobile-link">Ventures</a>
+    <a href="gallery.html" class="text-2xl font-oswald font-light text-neutral-300 hover:text-white transition-colors mobile-link">Gallery</a>
+    <a href="#testimonials" class="text-2xl font-oswald font-light text-neutral-300 hover:text-white transition-colors mobile-link">Voices</a>
+    <a href="#contact" class="mt-4 px-8 py-3 bg-blue-600 text-white text-lg font-medium rounded-xl mobile-link">Let's Connect</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center pt-24 pb-20 px-6 overflow-hidden">
+    <div class="absolute inset-0 grid-bg opacity-50"></div>
+    <div class="relative z-10 max-w-5xl mx-auto text-center">
+      <div class="anim-in delay-100 inline-flex items-center gap-2 px-4 py-2 bg-blue-600/10 border border-blue-500/20 rounded-full mb-8">
+        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+        <span class="text-xs font-medium text-blue-400 uppercase tracking-wider">Social Entrepreneur · Impact Leader</span>
+      </div>
+      <h1 class="anim-in delay-200 font-oswald font-light text-5xl md:text-7xl lg:text-[76px] leading-[1.05] tracking-tight mb-6">
+        Building <span class="text-gradient">Purpose-Driven</span><br>
+        Ventures That <span class="text-gradient">Transform</span><br>
+        Communities
+      </h1>
+      <p class="anim-in delay-300 text-neutral-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+        I'm Ameer Shaji — founder of Skoolguru, an online education platform focused on live learning, subjects on demand, and quick sign up.
+      </p>
+      <div class="anim-in delay-400 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#ventures" class="group px-8 py-3.5 bg-blue-600 hover:bg-blue-500 text-white text-lg font-semibold rounded-xl transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] flex items-center gap-2">
+          Explore My Ventures
+          <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+        </a>
+        <a href="https://youtu.be/1ZWDJHj5Txc?si=mTMOBvIi9QY9ijxG" target="_blank" rel="noopener" class="px-8 py-3.5 border border-white/10 hover:border-white/20 hover:bg-white/5 text-white text-lg font-medium rounded-xl transition-all flex items-center gap-2">
+          <i data-lucide="play-circle" class="w-5 h-5"></i>
+          Watch My Story
+        </a>
+      </div>
+      <!-- Stats row -->
+      <div class="anim-in delay-500 mt-16 flex flex-wrap items-center justify-center gap-3 max-w-4xl mx-auto">
+        <div class="inline-flex items-center gap-3 px-4 py-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+          <span class="w-2.5 h-2.5 rounded-full bg-blue-400"></span>
+          <span class="text-white font-medium">14+ Years</span>
+          <span class="text-neutral-500 text-xs uppercase tracking-wider">Leadership Experience</span>
+        </div>
+        <div class="inline-flex items-center gap-3 px-4 py-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+          <span class="w-2.5 h-2.5 rounded-full bg-purple-400"></span>
+          <span class="text-white font-medium">4+ Organizations</span>
+          <span class="text-neutral-500 text-xs uppercase tracking-wider">Led & Managed</span>
+        </div>
+        <div class="inline-flex items-center gap-3 px-4 py-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+          <span class="w-2.5 h-2.5 rounded-full bg-green-400"></span>
+          <span class="text-white font-medium">500+ Connections</span>
+          <span class="text-neutral-500 text-xs uppercase tracking-wider">Professional Network</span>
+        </div>
+      </div>
+    </div>
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+      <span class="text-[10px] text-neutral-600 uppercase tracking-widest">Scroll</span>
+      <i data-lucide="chevron-down" class="w-4 h-4 text-neutral-600"></i>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="relative py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- Image side -->
+        <div class="anim-in relative">
+          <div class="relative rounded-3xl overflow-hidden border border-white/10">
+            <img src="https://i.postimg.cc/XYvNdXH3/1000166894.jpg" alt="Ameer Shaji" class="w-full h-[500px] lg:h-[600px] object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent"></div>
+          </div>
+          <!-- Floating card -->
+          <div class="absolute -bottom-6 -right-4 md:right-6 bg-[#0A0A0A]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-5 float-anim">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-blue-600/20 flex items-center justify-center">
+                <i data-lucide="award" class="w-5 h-5 text-blue-400"></i>
+              </div>
+              <div>
+                <div class="text-sm font-medium text-white">Available for Speaking</div>
+                <div class="text-xs text-neutral-500">& Consulting</div>
+              </div>
+            </div>
+          </div>
+          <!-- Second floating card -->
+          <div class="absolute top-8 -left-4 md:left-6 bg-[#0A0A0A]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-5 float-anim-delay">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-purple-600/20 flex items-center justify-center">
+                <i data-lucide="globe" class="w-5 h-5 text-purple-400"></i>
+              </div>
+              <div>
+                <div class="text-sm font-medium text-white">Social</div>
+                <div class="text-xs text-neutral-500">Entrepreneur</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Text side -->
+        <div>
+          <div class="anim-in inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full mb-6">
+            <span class="text-[10px] font-medium text-neutral-400 uppercase tracking-widest">My Story</span>
+          </div>
+          <h2 class="anim-in delay-100 font-oswald font-light text-3xl md:text-4xl leading-tight mb-6">
+            From a <span class="text-gradient">Learning</span> to<br>Leading
+          </h2>
+          <div class="anim-in delay-200 space-y-4 text-neutral-400 leading-relaxed">
+            <p>
+              Ameer Shaji K is a Social Entrepreneur, HR Professional, Trainer, and Career Counselor dedicated to empowering people through education, leadership, and personal growth. His journey spans administration, human resources, and entrepreneurship, where he has consistently focused on developing talent and creating meaningful opportunities.
+            </p>
+            <p>
+              After building extensive experience in management and HR leadership, Ameer founded Skoolguru, an innovative e-learning platform aimed at transforming education through technology and purpose-driven learning. He later expanded his vision through Skool Box, further contributing to the educational ecosystem.
+            </p>
+            <p>
+              Today, Ameer continues to inspire students, professionals, and aspiring leaders through mentoring, training, and entrepreneurship, driven by a simple mission:
+            </p>
+          </div>
+          <div class="anim-in delay-300 mt-8 flex flex-wrap gap-3">
+            <span class="px-3 py-1.5 bg-blue-600/10 border border-blue-500/20 rounded-lg text-xs text-blue-400 font-medium">Social Innovation</span>
+            <span class="px-3 py-1.5 bg-purple-600/10 border border-purple-500/20 rounded-lg text-xs text-purple-400 font-medium">Impact Investing</span>
+            <span class="px-3 py-1.5 bg-green-600/10 border border-green-500/20 rounded-lg text-xs text-green-400 font-medium">Community Development</span>
+            <span class="px-3 py-1.5 bg-orange-600/10 border border-orange-500/20 rounded-lg text-xs text-orange-400 font-medium">SDG Alignment</span>
+            <span class="px-3 py-1.5 bg-cyan-600/10 border border-cyan-500/20 rounded-lg text-xs text-cyan-400 font-medium">Systems Thinking</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact Section -->
+  <section id="impact" class="relative py-24 px-6">
+    <div class="absolute inset-0 grid-bg opacity-30"></div>
+    <div class="relative z-10 max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <div class="anim-in inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full mb-6">
+          <span class="text-[10px] font-medium text-neutral-400 uppercase tracking-widest">Measurable Change</span>
+        </div>
+        <h2 class="anim-in delay-100 font-oswald font-light text-3xl md:text-5xl leading-tight">
+          Impact That <span class="text-gradient">Speaks</span> For Itself
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Impact Card 1 -->
+        <div class="anim-in delay-100 card-glow bg-[#0A0A0A] border border-white/5 hover:border-blue-500/20 rounded-2xl p-8 group">
+          <div class="w-12 h-12 rounded-xl bg-blue-600/15 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="heart-handshake" class="w-6 h-6 text-blue-400"></i>
+          </div>
+          <div class="font-oswald text-2xl font-light text-white mb-2">Education</div>
+          <h3 class="text-lg font-medium text-white mb-2">Learning Access</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">Affordable online education focused on accessible learning for students.</p>
+          <div class="mt-5 h-1 bg-white/5 rounded-full overflow-hidden">
+            <div class="progress-fill h-full bg-gradient-to-r from-blue-600 to-blue-400 rounded-full" style="width: 0%" data-width="85%"></div>
+          </div>
+        </div>
+        <!-- Impact Card 2 -->
+        <div class="anim-in delay-200 card-glow bg-[#0A0A0A] border border-white/5 hover:border-purple-500/20 rounded-2xl p-8 group">
+          <div class="w-12 h-12 rounded-xl bg-purple-600/15 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="sprout" class="w-6 h-6 text-purple-400"></i>
+          </div>
+          <div class="font-oswald text-2xl font-light text-white mb-2">Platform</div>
+          <h3 class="text-lg font-medium text-white mb-2">Digital Venture</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">An online learning product presented as Skoolguru on this page.</p>
+          <div class="mt-5 h-1 bg-white/5 rounded-full overflow-hidden">
+            <div class="progress-fill h-full bg-gradient-to-r from-purple-600 to-purple-400 rounded-full" style="width: 0%" data-width="72%"></div>
+          </div>
+        </div>
+        <!-- Impact Card 3 -->
+        <div class="anim-in delay-300 card-glow bg-[#0A0A0A] border border-white/5 hover:border-green-500/20 rounded-2xl p-8 group">
+          <div class="w-12 h-12 rounded-xl bg-green-600/15 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="graduation-cap" class="w-6 h-6 text-green-400"></i>
+          </div>
+          <div class="font-oswald text-2xl font-light text-white mb-2">Subjects</div>
+          <h3 class="text-lg font-medium text-white mb-2">On Demand</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">Flexible learning content available through the Skoolguru platform.</p>
+          <div class="mt-5 h-1 bg-white/5 rounded-full overflow-hidden">
+            <div class="progress-fill h-full bg-gradient-to-r from-green-600 to-green-400 rounded-full" style="width: 0%" data-width="68%"></div>
+          </div>
+        </div>
+        <!-- Impact Card 4 -->
+        <div class="anim-in delay-400 card-glow bg-[#0A0A0A] border border-white/5 hover:border-orange-500/20 rounded-2xl p-8 group">
+          <div class="w-12 h-12 rounded-xl bg-orange-600/15 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="home" class="w-6 h-6 text-orange-400"></i>
+          </div>
+          <div class="font-oswald text-2xl font-light text-white mb-2">Sign Up</div>
+          <h3 class="text-lg font-medium text-white mb-2">Quick Access</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">The page highlights a simple sign-up flow and fast response.</p>
+          <div class="mt-5 h-1 bg-white/5 rounded-full overflow-hidden">
+            <div class="progress-fill h-full bg-gradient-to-r from-orange-600 to-orange-400 rounded-full" style="width: 0%" data-width="55%"></div>
+          </div>
+        </div>
+        <!-- Impact Card 5 -->
+        <div class="anim-in delay-500 card-glow bg-[#0A0A0A] border border-white/5 hover:border-cyan-500/20 rounded-2xl p-8 group">
+          <div class="w-12 h-12 rounded-xl bg-cyan-600/15 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="droplets" class="w-6 h-6 text-cyan-400"></i>
+          </div>
+          <div class="font-oswald text-2xl font-light text-white mb-2">Learning</div>
+          <h3 class="text-lg font-medium text-white mb-2">Interactive Format</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">The page positions the offering as live and interactive learning.</p>
+          <div class="mt-5 h-1 bg-white/5 rounded-full overflow-hidden">
+            <div class="progress-fill h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" style="width: 0%" data-width="62%"></div>
+          </div>
+        </div>
+        <!-- Impact Card 6 -->
+        <div class="anim-in delay-600 card-glow bg-[#0A0A0A] border border-white/5 hover:border-yellow-500/20 rounded-2xl p-8 group">
+          <div class="w-12 h-12 rounded-xl bg-yellow-600/15 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="leaf" class="w-6 h-6 text-yellow-400"></i>
+          </div>
+          <div class="font-oswald text-2xl font-light text-white mb-2">Active</div>
+          <h3 class="text-lg font-medium text-white mb-2">Education Platform</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">The site presents Skoolguru as an active education platform.</p>
+          <div class="mt-5 h-1 bg-white/5 rounded-full overflow-hidden">
+            <div class="progress-fill h-full bg-gradient-to-r from-yellow-600 to-yellow-400 rounded-full" style="width: 0%" data-width="48%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ventures Section -->
+  <section id="ventures" class="relative py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <div class="anim-in inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full mb-6">
+          <span class="text-[10px] font-medium text-neutral-400 uppercase tracking-widest">Portfolio</span>
+        </div>
+        <h2 class="anim-in delay-100 font-oswald font-light text-3xl md:text-5xl leading-tight mb-4">
+          Ventures I've <span class="text-gradient">Built</span>
+        </h2>
+        <p class="anim-in delay-200 text-neutral-400 text-lg max-w-xl mx-auto">Each venture addresses a systemic challenge through sustainable, market-based innovation.</p>
+      </div>
+
+      <!-- Featured Venture -->
+      <div class="anim-in delay-200 bg-[#0A0A0A] border border-white/5 hover:border-blue-500/20 rounded-3xl overflow-hidden card-glow">
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+          <div class="relative">
+            <img src="https://i.postimg.cc/g2yPMB71/Frame-16.jpg" alt="Skoolguru" class="w-full h-[300px] lg:h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#0A0A0A] hidden lg:block"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] to-transparent lg:hidden"></div>
+          </div>
+          <div class="p-8 lg:p-10 flex flex-col justify-center">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="px-2.5 py-1 bg-blue-600/15 border border-blue-500/20 rounded-md text-[10px] text-blue-400 font-medium uppercase tracking-wider">Education</span>
+              <span class="px-2.5 py-1 bg-green-600/15 border border-green-500/20 rounded-md text-[10px] text-green-400 font-medium uppercase tracking-wider">Active</span>
+            </div>
+            <h3 class="font-oswald text-2xl md:text-3xl font-light text-white mb-3">Skoolguru</h3>
+            <p class="text-neutral-400 leading-relaxed mb-6">
+              Skool Guru e-learning is a revolutionary online education platform that is changing the way students learn.Our platform is designed to provide high-quality education to students of all ages, making education accessible, affordable, and engaging. Whether you are a student seeking to enhance your knowledge and skills or a teacher looking to reach more students, Skool Guru EdTech is the solution you need.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+              <div class="bg-[#0A0A0A] border border-white/5 rounded-xl p-2 flex items-center gap-3">
+                <span class="w-2 h-2 rounded-full bg-blue-400 flex-shrink-0"></span>
+                <div class="text-sm text-white leading-tight">Live & Interactive Learning</div>
+              </div>
+              <div class="bg-[#0A0A0A] border border-white/5 rounded-xl p-2 flex items-center gap-3">
+                <span class="w-2 h-2 rounded-full bg-purple-400 flex-shrink-0"></span>
+                <div class="text-sm text-white leading-tight">Subjects On Demand</div>
+              </div>
+              <div class="bg-[#0A0A0A] border border-white/5 rounded-xl p-2 flex items-center gap-3">
+                <span class="w-2 h-2 rounded-full bg-green-400 flex-shrink-0"></span>
+                <div class="text-sm text-white leading-tight">Quick Sign Up and Response</div>
+              </div>
+            </div>
+            <a href="https://www.skoolguru.in/" target="_blank" rel="noopener" class="group inline-flex items-center gap-2 text-blue-400 text-sm font-medium hover:text-blue-300 transition-colors">
+              Learn More <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Ventures Row -->
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 anim-in delay-300">
+        <div class="bg-[#0A0A0A] border border-white/5 rounded-2xl p-6 flex flex-col gap-3 card-glow">
+          <img src="https://i.postimg.cc/HnvJ4pKZ/Frame-12.jpg" alt="Skoolguru" class="w-full h-40 object-cover rounded-md">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 bg-blue-600/15 border border-blue-500/20 rounded-md text-[10px] text-blue-400 font-medium uppercase">Education</span>
+            <span class="px-2 py-0.5 bg-green-600/15 border border-green-500/20 rounded-md text-[10px] text-green-400 font-medium uppercase">Active</span>
+          </div>
+          <h4 class="text-lg font-medium text-white">SkoolBox</h4>
+          <p class="text-sm text-neutral-400 leading-relaxed">Skool Box is a revolutionary educational toy platform that is transforming the way children learn through hands-on, screen-free experiences.</p>
+          <a href="https://myskoolbox.com/" target="_blank" rel="noopener" class="text-blue-400 text-sm mt-2">Learn More</a>
+        </div>
+
+        <div class="bg-[#0A0A0A] border border-white/5 rounded-2xl p-6 flex flex-col gap-3 card-glow">
+          <img src="https://i.postimg.cc/5NGYX28n/Frame-13.jpg" alt="Skoolguru" class="w-full h-40 object-cover rounded-md">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 bg-blue-600/15 border border-blue-500/20 rounded-md text-[10px] text-blue-400 font-medium uppercase">Education</span>
+            <span class="px-2 py-0.5 bg-green-600/15 border border-green-500/20 rounded-md text-[10px] text-green-400 font-medium uppercase">Active</span>
+          </div>
+          <h4 class="text-lg font-medium text-white">Skoolguru Eazy arabic</h4>
+          <p class="text-sm text-neutral-400 leading-relaxed">Skool Guru Eazy Arabic is an innovative online Arabic academy dedicated to helping learners achieve fluency through structured, app-based education.</p>
+          <a href="https://www.instagram.com/eazy_arabic" target="_blank" rel="noopener" class="text-blue-400 text-sm mt-2">Learn More</a>
+        </div>
+
+        <div class="bg-[#0A0A0A] border border-white/5 rounded-2xl p-6 flex flex-col gap-3 card-glow">
+          <img src="https://i.postimg.cc/8Cg7bXKL/Frame-14.jpg" alt="Skoolguru" class="w-full h-40 object-cover rounded-md">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 bg-blue-600/15 border border-blue-500/20 rounded-md text-[10px] text-blue-400 font-medium uppercase">Education</span>
+            <span class="px-2 py-0.5 bg-green-600/15 border border-green-500/20 rounded-md text-[10px] text-green-400 font-medium uppercase">Active</span>
+          </div>
+          <h4 class="text-lg font-medium text-white">Skool Next</h4>
+          <p class="text-sm text-neutral-400 leading-relaxed">Skool Next is a revolutionary career development platform that is transforming the way individuals acquire practical skills and achieve professional success.</p>
+          <a href="https://www.instagram.com/skoolnext" target="_blank" rel="noopener" class="text-blue-400 text-sm mt-2">Learn More</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Gallery Preview Section -->
+  <section id="gallery" class="relative py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <div class="anim-in inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full mb-6">
+          <span class="text-[10px] font-medium text-neutral-400 uppercase tracking-widest">Gallery</span>
+        </div>
+        <h2 class="anim-in delay-100 font-oswald font-light text-3xl md:text-5xl leading-tight">
+          Visual <span class="text-gradient">Moments</span>
+        </h2>
+        <p class="anim-in delay-200 text-neutral-400 text-lg max-w-2xl mx-auto mt-4">
+          A look at featured moments from events, learning sessions, and community impact.
+        </p>
+      </div>
+      <div id="galleryPreview" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 anim-in delay-300"></div>
+      <div class="anim-in delay-400 mt-10 text-center">
+        <a href="gallery.html" class="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-all">
+          View More
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline / Journey -->
+  <section class="relative py-24 px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16">
+        <div class="anim-in inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full mb-6">
+          <span class="text-[10px] font-medium text-neutral-400 uppercase tracking-widest">Journey</span>
+        </div>
+        <h2 class="anim-in delay-100 font-oswald font-light text-3xl md:text-5xl leading-tight">
+          The <span class="text-gradient">Milestones</span>
+        </h2>
+      </div>
+
+      <div class="relative">
+        <!-- Timeline line -->
+        <div class="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-blue-600 via-purple-600 to-orange-500 opacity-30"></div>
+
+        <!-- Timeline items -->
+        <div class="space-y-12">
+          <div class="anim-in delay-100 relative flex items-start gap-6 md:gap-0">
+            <div class="md:w-1/2 md:pr-12 md:text-right">
+              <div class="hidden md:block">
+                <span class="text-xs text-blue-400 font-medium">2011</span>
+                <h3 class="font-medium text-white mt-1">Started Career in Healthcare Administration</h3>
+                <p class="text-sm text-neutral-500 mt-1">Joined <strong>ABATE AS</strong> as Hospital Administrator, gaining experience in operations, leadership, and organizational management.</p>
+              </div>
+            </div>
+            <div class="relative z-10 w-12 h-12 rounded-full bg-[#0A0A0A] border-2 border-blue-500 flex items-center justify-center flex-shrink-0">
+              <i data-lucide="briefcase" class="w-5 h-5 text-blue-400"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-12">
+              <div class="md:hidden">
+                <span class="text-xs text-blue-400 font-medium">2011</span>
+                <h3 class="font-medium text-white mt-1">Started Career in Healthcare Administration</h3>
+                <p class="text-sm text-neutral-500 mt-1">Joined <strong>ABATE AS</strong> as Hospital Administrator, gaining experience in operations, leadership, and organizational management.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="anim-in delay-200 relative flex items-start gap-6 md:gap-0">
+            <div class="md:w-1/2 md:pr-12 md:text-right hidden md:block"></div>
+            <div class="relative z-10 w-12 h-12 rounded-full bg-[#0A0A0A] border-2 border-purple-500 flex items-center justify-center flex-shrink-0">
+              <i data-lucide="users" class="w-5 h-5 text-purple-400"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-12">
+              <span class="text-xs text-purple-400 font-medium">2014</span>
+              <h3 class="font-medium text-white mt-1">Entered Human Resources Leadership</h3>
+              <p class="text-sm text-neutral-500 mt-1">Began working as <strong>Senior Executive Human Resources</strong> at <strong>Care n Cure Qatar</strong>, focusing on workforce development, employee relations, and organizational growth.</p>
+            </div>
+          </div>
+
+          <div class="anim-in delay-300 relative flex items-start gap-6 md:gap-0">
+            <div class="md:w-1/2 md:pr-12 md:text-right">
+              <div class="hidden md:block">
+                <span class="text-xs text-green-400 font-medium">2019</span>
+                <h3 class="font-medium text-white mt-1">Transition Towards Entrepreneurship</h3>
+                <p class="text-sm text-neutral-500 mt-1">Completed a successful HR leadership journey and began pursuing a larger vision in education, innovation, and social impact.</p>
+              </div>
+            </div>
+            <div class="relative z-10 w-12 h-12 rounded-full bg-[#0A0A0A] border-2 border-green-500 flex items-center justify-center flex-shrink-0">
+              <i data-lucide="trending-up" class="w-5 h-5 text-green-400"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-12">
+              <div class="md:hidden">
+                <span class="text-xs text-green-400 font-medium">2019</span>
+                <h3 class="font-medium text-white mt-1">Transition Towards Entrepreneurship</h3>
+                <p class="text-sm text-neutral-500 mt-1">Completed a successful HR leadership journey and began pursuing a larger vision in education, innovation, and social impact.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="anim-in delay-400 relative flex items-start gap-6 md:gap-0">
+            <div class="md:w-1/2 md:pr-12 md:text-right hidden md:block"></div>
+            <div class="relative z-10 w-12 h-12 rounded-full bg-[#0A0A0A] border-2 border-orange-500 flex items-center justify-center flex-shrink-0">
+              <i data-lucide="school" class="w-5 h-5 text-orange-400"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-12">
+              <span class="text-xs text-orange-400 font-medium">2020</span>
+              <h3 class="font-medium text-white mt-1">Founded Skoolguru E-learning</h3>
+              <p class="text-sm text-neutral-500 mt-1">Launched <strong>Skoolguru</strong>, an e-learning platform with a vision to transform education through technology and accessible learning solutions.</p>
+            </div>
+          </div>
+
+          <div class="anim-in delay-500 relative flex items-start gap-6 md:gap-0">
+            <div class="md:w-1/2 md:pr-12 md:text-right">
+              <div class="hidden md:block">
+                <span class="text-xs text-cyan-400 font-medium">2025</span>
+                <h3 class="font-medium text-white mt-1">Expanding the Education Ecosystem</h3>
+                <p class="text-sm text-neutral-500 mt-1">Focused on evolving Skoolguru beyond a traditional EdTech platform, emphasizing AI for teachers, digital literacy, and accessible learning experiences.</p>
+              </div>
+            </div>
+            <div class="relative z-10 w-12 h-12 rounded-full bg-[#0A0A0A] border-2 border-cyan-500 flex items-center justify-center flex-shrink-0" style="animation: pulse-glow 2s infinite;">
+              <i data-lucide="layers" class="w-5 h-5 text-cyan-400"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-12">
+              <div class="md:hidden">
+                <span class="text-xs text-cyan-400 font-medium">2025</span>
+                <h3 class="font-medium text-white mt-1">Expanding the Education Ecosystem</h3>
+                <p class="text-sm text-neutral-500 mt-1">Focused on evolving Skoolguru beyond a traditional EdTech platform, emphasizing AI for teachers, digital literacy, and accessible learning experiences.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="anim-in delay-600 relative flex items-start gap-6 md:gap-0">
+            <div class="md:w-1/2 md:pr-12 md:text-right hidden md:block"></div>
+            <div class="relative z-10 w-12 h-12 rounded-full bg-[#0A0A0A] border-2 border-violet-500 flex items-center justify-center flex-shrink-0">
+              <i data-lucide="award" class="w-5 h-5 text-violet-400"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-12">
+              <span class="text-xs text-violet-400 font-medium">2026</span>
+              <h3 class="font-medium text-white mt-1">Launch of Skool Box</h3>
+              <p class="text-sm text-neutral-500 mt-1">Founded <strong>Skool Box</strong>, expanding the mission within the education ecosystem through new learning-focused initiatives and products.</p>
+            </div>
+          </div>
+
+          <div class="anim-in delay-700 relative flex items-start gap-6 md:gap-0">
+            <div class="md:w-1/2 md:pr-12 md:text-right">
+              <div class="hidden md:block">
+                <span class="text-xs text-fuchsia-400 font-medium">2026</span>
+                <h3 class="font-medium text-white mt-1">Startup Community Recognition</h3>
+                <p class="text-sm text-neutral-500 mt-1">Featured as a founder participating in the <strong>Kerala Startup Carnival 2026</strong>, highlighting contributions to educational innovation and entrepreneurship.</p>
+              </div>
+            </div>
+            <div class="relative z-10 w-12 h-12 rounded-full bg-[#0A0A0A] border-2 border-fuchsia-500 flex items-center justify-center flex-shrink-0">
+              <i data-lucide="sparkles" class="w-5 h-5 text-fuchsia-400"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-12">
+              <div class="md:hidden">
+                <span class="text-xs text-fuchsia-400 font-medium">2026</span>
+                <h3 class="font-medium text-white mt-1">Startup Community Recognition</h3>
+                <p class="text-sm text-neutral-500 mt-1">Featured as a founder participating in the <strong>Kerala Startup Carnival 2026</strong>, highlighting contributions to educational innovation and entrepreneurship.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="hidden relative py-24 px-6">
+    <div class="absolute inset-0 grid-bg opacity-30"></div>
+    <div class="relative z-10 max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <div class="anim-in inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full mb-6">
+          <span class="text-[10px] font-medium text-neutral-400 uppercase tracking-widest">Voices</span>
+        </div>
+        <h2 class="anim-in delay-100 font-oswald font-light text-3xl md:text-5xl leading-tight">
+          What <span class="text-gradient">Leaders</span> Say
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="anim-in delay-200 card-glow bg-[#0A0A0A] border border-white/5 hover:border-blue-500/20 rounded-2xl p-6">
+          <div class="flex items-center gap-1 mb-4">
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+          </div>
+          <p class="text-neutral-400 text-sm leading-relaxed mb-6">
+            "Amara doesn't just build ventures — she builds movements. BrightSeed has fundamentally changed how we think about education delivery in low-resource settings."
+          </p>
+          <div class="flex items-center gap-3">
+            <img src="https://picsum.photos/seed/person-dr-kim/100/100.jpg" alt="Dr. Sarah Kim" class="w-10 h-10 rounded-full object-cover ring-2 ring-[#0A0A0A]">
+            <div>
+              <div class="text-sm font-medium text-white">Dr. Sarah Kim</div>
+              <div class="text-xs text-neutral-500">Director, UNESCO Education</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="anim-in delay-300 card-glow bg-[#0A0A0A] border border-white/5 hover:border-purple-500/20 rounded-2xl p-6">
+          <div class="flex items-center gap-1 mb-4">
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+          </div>
+          <p class="text-neutral-400 text-sm leading-relaxed mb-6">
+            "Working with Amara on WaterFlow showed me what's possible when empathy meets entrepreneurship. She's the rare leader who listens as powerfully as she acts."
+          </p>
+          <div class="flex items-center gap-3">
+            <img src="https://picsum.photos/seed/person-james-okafor/100/100.jpg" alt="James Okafor" class="w-10 h-10 rounded-full object-cover ring-2 ring-[#0A0A0A]">
+            <div>
+              <div class="text-sm font-medium text-white">James Okafor</div>
+              <div class="text-xs text-neutral-500">CEO, Africa Impact Capital</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="anim-in delay-400 card-glow bg-[#0A0A0A] border border-white/5 hover:border-green-500/20 rounded-2xl p-6">
+          <div class="flex items-center gap-1 mb-4">
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+          </div>
+          <p class="text-neutral-400 text-sm leading-relaxed mb-6">
+            "Amara's approach to GreenLoop Agri transformed our cooperative. For the first time, we're earning fair prices and our children see farming as a career, not a sentence."
+          </p>
+          <div class="flex items-center gap-3">
+            <img src="https://picsum.photos/seed/person-fatima-m/100/100.jpg" alt="Fatima Mensah" class="w-10 h-10 rounded-full object-cover ring-2 ring-[#0A0A0A]">
+            <div>
+              <div class="text-sm font-medium text-white">Fatima Mensah</div>
+              <div class="text-xs text-neutral-500">Farmer Leader, GreenLoop Co-op</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Section -->
+  <section id="contact" class="relative py-24 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="anim-in relative bg-[#0A0A0A] border border-white/10 rounded-3xl overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-blue-600/20 blur-[100px] rounded-full pointer-events-none"></div>
+
+        <div class="relative z-10 p-8 md:p-12 lg:p-16">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-600/10 border border-blue-500/20 rounded-full mb-6">
+            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+            <span class="text-[10px] font-medium text-blue-400 uppercase tracking-widest">Schedule a booking session</span>
+          </div>
+          <h2 class="font-oswald font-light text-3xl md:text-5xl leading-tight mb-4 text-center">
+            Book Your <span class="text-gradient">Preferred</span><br>Time Slot
+          </h2>
+          <p class="text-neutral-400 text-lg max-w-2xl mx-auto mb-10 text-center">
+            Choose a date, select the best time window, and confirm your booking details in one simple flow.
+          </p>
+
+          <form id="bookingForm" action="https://formsubmit.co/ameershajiakl@gmail.com" method="POST" class="space-y-10">
+            <input type="hidden" name="_subject" value="New message from Bishr Ameershaji Portfolio">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" id="_next" value="">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs text-neutral-500 uppercase tracking-wider mb-1.5 block">Name</label>
+                <input type="text" name="name" placeholder="Your name" required class="w-full bg-white/5 border border-white/10 focus:border-blue-500/50 rounded-xl px-4 py-3 text-sm text-white placeholder-neutral-600 outline-none transition-colors">
+              </div>
+              <div>
+                <label class="text-xs text-neutral-500 uppercase tracking-wider mb-1.5 block">Email</label>
+                <input type="email" name="email" placeholder="you@email.com" required class="w-full bg-white/5 border border-white/10 focus:border-blue-500/50 rounded-xl px-4 py-3 text-sm text-white placeholder-neutral-600 outline-none transition-colors">
+              </div>
+              <div>
+                <label class="text-xs text-neutral-500 uppercase tracking-wider mb-1.5 block">Phone</label>
+                <input type="tel" name="phone" placeholder="+974 1234 5678" required class="w-full bg-white/5 border border-white/10 focus:border-blue-500/50 rounded-xl px-4 py-3 text-sm text-white placeholder-neutral-600 outline-none transition-colors">
+              </div>
+              <div>
+                <label class="text-xs text-neutral-500 uppercase tracking-wider mb-1.5 block">Best contact method</label>
+                <select id="contactMethod" name="contactMethod" class="w-full bg-white/5 border border-white/10 focus:border-blue-500/50 rounded-xl px-4 py-3 text-sm text-white outline-none transition-colors cursor-pointer">
+                  <option value="Email">Email</option>
+                  <option value="Phone">Phone</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <div class="text-lg font-medium text-white mb-4">Choose a date</div>
+              <div class="relative">
+                <input
+                  type="date"
+                  id="bookingDatePicker"
+                  class="w-full rounded-3xl border border-white/10 bg-white/5 p-4 pr-12 text-white outline-none focus:border-blue-400/50 focus:bg-white/10 transition"
+                  required
+                  aria-label="Select booking date"
+                  onfocus="if (this.showPicker) this.showPicker()"
+                >
+                <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-neutral-400">
+                  <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="17" rx="2"></rect>
+                    <path d="M3 9h18"></path>
+                    <path d="M8 2v4"></path>
+                    <path d="M16 2v4"></path>
+                  </svg>
+                </div>
+                <style>
+                  input[type="date"]::-webkit-calendar-picker-indicator {
+                    filter: brightness(0.8) invert(1);
+                    cursor: pointer;
+                  }
+                  input[type="date"] {
+                    color-scheme: dark;
+                    font: inherit;
+                  }
+                </style>
+              </div>
+            </div>
+
+            <div>
+              <div class="text-lg font-medium text-white mb-4">Choose a time window</div>
+              <div class="rounded-full bg-white/5 border border-white/10 p-1 grid grid-cols-3 gap-1 mb-6" id="bookingWindowList">
+                <button type="button" data-booking-window="Morning" class="rounded-full bg-white/10 py-3 text-sm font-semibold text-neutral-200">Morning</button>
+                <button type="button" data-booking-window="Midday" class="rounded-full bg-white/5 py-3 text-sm font-semibold text-white">Midday</button>
+                <button type="button" data-booking-window="Evening" class="rounded-full bg-white/10 py-3 text-sm font-semibold text-neutral-200">Evening</button>
+              </div>
+
+              <div class="text-lg font-medium text-white mb-4">Choose a time slot</div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="bookingSlotList">
+                <button type="button" data-booking-slot="09:00 AM" class="rounded-3xl border border-white/10 bg-white/5 py-4 text-sm text-white font-medium transition hover:border-blue-400/30 hover:bg-white/10">09:00 AM</button>
+                <button type="button" data-booking-slot="10:00 AM" class="rounded-3xl border border-white/10 bg-white/5 py-4 text-sm text-white font-medium transition hover:border-blue-400/30 hover:bg-white/10">10:00 AM</button>
+                <button type="button" data-booking-slot="11:00 AM" class="rounded-3xl border border-white/10 bg-white/5 py-4 text-sm text-white font-medium transition hover:border-blue-400/30 hover:bg-white/10">11:00 AM</button>
+                <button type="button" data-booking-slot="12:00 PM" class="rounded-3xl border border-white/10 bg-white/5 py-4 text-sm text-white font-medium transition hover:border-blue-400/30 hover:bg-white/10">12:00 PM</button>
+                <button type="button" data-booking-slot="01:00 PM" class="rounded-3xl border border-white/10 bg-white/5 py-4 text-sm text-white font-medium transition hover:border-blue-400/30 hover:bg-white/10">01:00 PM</button>
+                <button type="button" data-booking-slot="02:00 PM" class="rounded-3xl border border-white/10 bg-white/5 py-4 text-sm text-white font-medium transition hover:border-blue-400/30 hover:bg-white/10">02:00 PM</button>
+                <button type="button" data-booking-slot="03:00 PM" class="rounded-3xl border border-white/10 bg-white/5 py-4 text-sm text-white font-medium transition hover:border-blue-400/30 hover:bg-white/10">03:00 PM</button>
+                <button type="button" data-booking-slot="04:00 PM" class="rounded-3xl border border-white/10 bg-white/5 py-4 text-sm text-white font-medium transition hover:border-blue-400/30 hover:bg-white/10">04:00 PM</button>
+              </div>
+            </div>
+
+            <input type="hidden" id="bookingDate" name="date" value="16 May">
+            <input type="hidden" id="bookingWindow" name="timeWindow" value="Midday">
+            <input type="hidden" id="bookingSlot" name="timeSlot" value="09:00 AM">
+
+            <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-end">
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-4 grid gap-4">
+                <div class="flex items-center gap-3">
+                  <svg viewBox="0 0 24 24" class="w-5 h-5 text-neutral-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 4v16M4 12h16" />
+                  </svg>
+                  <select id="timezone" name="timezone" class="w-full bg-transparent text-sm text-white outline-none appearance-none cursor-pointer">
+                    <option>Asia/Kolkata (GMT+5:30)</option>
+                    <option>Europe/London (GMT+1)</option>
+                    <option>America/New_York (GMT-4)</option>
+                    <option>Asia/Dubai (GMT+4)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="text-xs text-neutral-500 uppercase tracking-wider mb-1.5 block">Message</label>
+                  <textarea name="message" rows="4" placeholder="Tell us what you'd like to discuss" class="w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3 text-sm text-white placeholder-neutral-600 outline-none transition-colors resize-none"></textarea>
+                </div>
+              </div>
+              <button type="submit" class="w-full md:w-auto rounded-3xl bg-blue-600 hover:bg-blue-500 py-4 px-8 text-white font-semibold transition">Confirm details</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5 py-12 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+              <span class="font-oswald font-bold text-sm">AS</span>
+            </div>
+            <span class="font-oswald font-light text-lg tracking-tight">Ameer Shaji</span>
+          </div>
+          <p class="text-sm text-neutral-500 max-w-xs leading-relaxed">
+            Social entrepreneur building purpose-driven ventures that transform communities across the globe.
+          </p>
+          <div class="flex flex-wrap items-center gap-3 mt-5">
+            <a href="https://www.instagram.com/ameershaji_k" target="_blank" rel="noopener" aria-label="Instagram" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center transition-colors">
+              <svg viewBox="0 0 24 24" class="w-4 h-4 text-neutral-400 fill-current" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="4" width="16" height="16" rx="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/>
+              </svg>
+            </a>
+            <a href="https://wa.me/97430448820" target="_blank" rel="noopener" aria-label="WhatsApp" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center transition-colors">
+              <svg viewBox="0 0 24 24" class="w-4 h-4 text-neutral-400 fill-current" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3a9 9 0 0 0-8.8 11.1L3 21l6.1-1A9 9 0 1 0 12 3z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M8.7 14.4c.5 1 1.9 1.9 3 2.3.7.2 1.2.2 1.6.2.4 0 .8 0 1.1-.1.3-.1.7-.3 1.1-.6.4-.3.9-.6 1.2-.8.3-.2.4-.5.4-.8 0-.1 0-.3-.1-.5-.1-.2-.2-.4-.4-.6-.2-.1-.4-.2-.7-.4-.2-.1-.5-.1-.7-.1-.2 0-.5 0-.7.1-.3.1-.6.2-.9.3-.3.1-.7.1-1 .1-.3 0-.6-.1-.8-.2-.2-.1-.4-.3-.5-.6-.1-.2-.1-.5-.1-.8 0-.2 0-.5.1-.7.1-.2.2-.4.4-.6.1-.2.3-.4.5-.6.3-.2.7-.4 1-.6.2-.1.4-.3.6-.4.2-.1.3-.3.4-.5.1-.2.1-.4.1-.7 0-.2 0-.4-.1-.6-.1-.2-.2-.4-.5-.6-.2-.2-.6-.3-1.1-.3-.8 0-1.5.1-2.1.4-.6.3-1.1.6-1.6 1.1-.5.5-.8 1.1-.9 1.8-.1.8-.1 1.6.1 2.4.1.5.3 1 .5 1.5z" fill="currentColor"/>
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/ameer-shaji-k" target="_blank" rel="noopener" aria-label="LinkedIn" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center transition-colors">
+              <svg viewBox="0 0 24 24" class="w-4 h-4 text-neutral-400 fill-current" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M8.5 10.5v5M11.5 10.5v5M8.5 10.5h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                <circle cx="8.5" cy="7.5" r="1" fill="currentColor"/>
+                <path d="M15.5 10.5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              </svg>
+            </a>
+            <a href="https://www.tiktok.com/@ameer_shaji" target="_blank" rel="noopener" aria-label="TikTok" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center transition-colors">
+              <svg viewBox="0 0 24 24" class="w-4 h-4 text-neutral-400 fill-current" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 3v7.2a3.5 3.5 0 1 1-3.5 3.5H8a5 5 0 1 0 5-5V3z" fill="currentColor"/>
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/ameershajiakl" target="_blank" rel="noopener" aria-label="Facebook" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center transition-colors">
+              <svg viewBox="0 0 24 24" class="w-4 h-4 text-neutral-400 fill-current" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.5 3h-2a6 6 0 0 0-6 6v2.5H3v2.5h2.5V21h3.5v-7.5H14l1-2.5h-3.5V9.5c0-.7.3-1.5 1.5-1.5h2V5h-2z" fill="currentColor"/>
+              </svg>
+            </a>
+            <a href="https://x.com/shajiakl" target="_blank" rel="noopener" aria-label="X" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center transition-colors">
+              <svg viewBox="0 0 24 24" class="w-4 h-4 text-neutral-400 fill-current" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+              </svg>
+            </a>
+            <a href="https://www.threads.com/@ameershaji" target="_blank" rel="noopener" aria-label="Threads" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center transition-colors">
+              <svg viewBox="0 0 24 24" class="w-4 h-4 text-neutral-400 fill-current" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3C7 3 4 6 4 12s3 9 8 9 8-3 8-9c0-3-2-5-4-6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M14 6.5a4 4 0 0 1 4 4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              </svg>
+            </a>
+            <a href="https://in.pinterest.com/shajiakl/" target="_blank" rel="noopener" aria-label="Pinterest" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center transition-colors">
+              <svg viewBox="0 0 24 24" class="w-4 h-4 text-neutral-400 fill-current" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3a9 9 0 0 0-3 17.5c.2-1.2.4-2.7.9-3.8.4-1 2.5-6.4 2.5-6.4s-.6-1.3-.6-3.2c0-3 1.8-5.3 4-5.3 1.9 0 2.8 1.4 2.8 3.1 0 1.9-1.2 4.8-1.8 7.4-.5 2.2 1.1 3.9 3.2 3.9 3.8 0 6.5-4 6.5-9.3 0-4.9-4-8.4-9.4-8.4z" fill="currentColor"/>
+              </svg>
+            </a>
+            <a href="https://www.youtube.com/@ameershaji" target="_blank" rel="noopener" aria-label="YouTube" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center transition-colors">
+              <svg viewBox="0 0 24 24" class="w-4 h-4 text-neutral-400 fill-current" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="6" width="18" height="12" rx="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M10 9.5l5 2.5-5 2.5V9.5z" fill="currentColor"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-xs text-neutral-400 font-medium uppercase tracking-wider mb-4">Navigate</h4>
+          <div class="space-y-2">
+            <a href="#about" class="block text-sm text-neutral-500 hover:text-white transition-colors">About</a>
+            <a href="#impact" class="block text-sm text-neutral-500 hover:text-white transition-colors">Impact</a>
+            <a href="#ventures" class="block text-sm text-neutral-500 hover:text-white transition-colors">Ventures</a>
+            <a href="#testimonials" class="block text-sm text-neutral-500 hover:text-white transition-colors">Voices</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-xs text-neutral-400 font-medium uppercase tracking-wider mb-4">Connect</h4>
+          <div class="space-y-2">
+            <a href="#contact" class="block text-sm text-neutral-500 hover:text-white transition-colors">Contact</a>
+            <a href="#" class="block text-sm text-neutral-500 hover:text-white transition-colors">Speaking</a>
+            <a href="#" class="block text-sm text-neutral-500 hover:text-white transition-colors">Press Kit</a>
+            <a href="#" class="block text-sm text-neutral-500 hover:text-white transition-colors">Newsletter</a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-white/5 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <span class="text-xs text-neutral-600">© 2025 <span id="adminLoginTrigger" class="footer-admin-trigger">Ameer Shaji</span>. All rights reserved.</span>
+        <span class="text-xs text-neutral-600">Designed with purpose. Built with love.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast fixed bottom-6 right-6 z-[70] bg-[#0A0A0A] border border-green-500/30 rounded-xl p-4 flex items-center gap-3 shadow-[0_0_20px_rgba(34,197,94,0.15)]">
+    <div class="w-8 h-8 rounded-lg bg-green-600/20 flex items-center justify-center flex-shrink-0">
+      <i data-lucide="check" class="w-4 h-4 text-green-400"></i>
+    </div>
+    <div>
+      <div class="text-sm font-medium text-white">Message Sent!</div>
+      <div class="text-xs text-neutral-500">I'll get back to you soon.</div>
+    </div>
+  </div>
+
+  <!-- Admin Login Modal -->
+  <div id="adminLoginModal" class="hidden fixed inset-0 z-[80] bg-black/70 backdrop-blur-sm px-4 py-10 flex items-start justify-center overflow-y-auto">
+    <div class="w-full max-w-md bg-[#0A0A0A] border border-white/10 rounded-3xl p-8 shadow-2xl">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="text-2xl font-oswald font-light text-white">Admin Login</h2>
+          <p class="text-sm text-neutral-400 mt-1">Enter the admin code to open the dashboard.</p>
+        </div>
+        <button id="adminLoginClose" class="text-neutral-400 hover:text-white">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+      <form id="adminLoginForm" class="space-y-4">
+        <label class="block text-sm text-neutral-400">Passcode</label>
+        <input type="password" id="adminPasswordInput" placeholder="Enter passcode" required class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white outline-none focus:border-blue-500/50" />
+        <p id="adminLoginError" class="hidden text-sm text-red-400">Incorrect passcode. Try again.</p>
+        <button class="w-full py-3 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold">Open Admin Dashboard</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Scroll-triggered animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          
+          // Progress bars
+          const progressBars = entry.target.querySelectorAll('.progress-fill');
+          progressBars.forEach(bar => {
+            const width = bar.getAttribute('data-width');
+            if (width) {
+              setTimeout(() => { bar.style.width = width; }, 300);
+            }
+          });
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
+
+    document.querySelectorAll('.anim-in').forEach(el => observer.observe(el));
+
+    // Mobile menu
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileClose = document.getElementById('mobileClose');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    mobileToggle.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    // Booking form
+    const bookingForm = document.getElementById('bookingForm');
+    const toast = document.getElementById('toast');
+    const bookingDatePicker = document.getElementById('bookingDatePicker');
+    const bookingWindowButtons = document.querySelectorAll('[data-booking-window]');
+    const bookingSlotButtons = document.querySelectorAll('[data-booking-slot]');
+    const bookingDateInput = document.getElementById('bookingDate');
+    const bookingWindowInput = document.getElementById('bookingWindow');
+    const bookingSlotInput = document.getElementById('bookingSlot');
+
+    const activeWindowClass = 'bg-blue-500/10 text-white';
+    const activeSlotClass = 'border-blue-400/40 bg-blue-500/10 text-white';
+
+    function setActive(buttons, selectedButton, activeClass) {
+      buttons.forEach(btn => btn.classList.remove(...activeClass.split(' ')));
+      selectedButton.classList.add(...activeClass.split(' '));
+    }
+
+    function formatDateForDisplay(dateStr) {
+      if (!dateStr) return '';
+      const date = new Date(dateStr + 'T00:00:00');
+      const options = { weekday: 'short', month: 'short', day: 'numeric' };
+      return date.toLocaleDateString('en-US', options).replace(/(\w+)\s(\w+)\s(\d+)/, '$2 $3').trim();
+    }
+
+    function setBookingWindow(button) {
+      setActive(bookingWindowButtons, button, activeWindowClass);
+      bookingWindowInput.value = button.dataset.bookingWindow;
+    }
+
+    function setBookingSlot(button) {
+      setActive(bookingSlotButtons, button, activeSlotClass);
+      bookingSlotInput.value = button.dataset.bookingSlot;
+    }
+
+    // Set today's date as the minimum date and initialize the calendar picker
+    const today = new Date();
+    const minDate = today.toISOString().split('T')[0];
+    bookingDatePicker.setAttribute('min', minDate);
+    bookingDatePicker.value = minDate;
+    bookingDateInput.value = formatDateForDisplay(minDate);
+
+    bookingDatePicker.addEventListener('change', (e) => {
+      bookingDateInput.value = formatDateForDisplay(e.target.value);
+    });
+
+    if (bookingDatePicker) {
+      bookingDatePicker.addEventListener('click', () => {
+        if (typeof bookingDatePicker.showPicker === 'function') {
+          bookingDatePicker.showPicker();
+        }
+      });
+    }
+
+    bookingWindowButtons.forEach(button => {
+      button.addEventListener('click', () => setBookingWindow(button));
+    });
+
+    bookingSlotButtons.forEach(button => {
+      button.addEventListener('click', () => setBookingSlot(button));
+    });
+
+    if (bookingWindowButtons[1]) setBookingWindow(bookingWindowButtons[1]);
+    if (bookingSlotButtons[0]) setBookingSlot(bookingSlotButtons[0]);
+
+    const nextInput = document.getElementById('_next');
+    if (nextInput) {
+      nextInput.value = window.location.href;
+    }
+
+    // Gallery preview load
+    const galleryPreview = document.getElementById('galleryPreview');
+    async function loadGalleryPreview() {
+      if (!galleryPreview) return;
+      try {
+        const response = await fetch('/api/gallery');
+        const items = await response.json();
+        const visibleItems = items.filter(item => item.visible !== false);
+
+        if (!visibleItems.length) {
+          galleryPreview.innerHTML = '<div class="text-neutral-400 col-span-full">No selected gallery items are available for preview.</div>';
+          return;
+        }
+
+        galleryPreview.innerHTML = visibleItems.slice(0, 6).map(item => `
+          <div class="gallery-card bg-[#0A0A0A] border border-white/10 shadow-lg" data-caption="${item.caption}">
+            <img src="${item.image}" alt="${item.caption}" class="w-full h-72 object-cover">
+            <div class="gallery-caption">${item.caption}</div>
+          </div>
+        `).join('');
+
+        galleryPreview.querySelectorAll('.gallery-card').forEach(card => {
+          card.addEventListener('click', () => {
+            galleryPreview.querySelectorAll('.gallery-card').forEach(item => item.classList.remove('is-active'));
+            card.classList.add('is-active');
+          });
+        });
+      } catch (error) {
+        galleryPreview.innerHTML = '<div class="text-neutral-400 col-span-full">Unable to load gallery preview.</div>';
+      }
+    }
+    loadGalleryPreview();
+
+    const adminLoginTrigger = document.getElementById('adminLoginTrigger');
+    const adminLoginModal = document.getElementById('adminLoginModal');
+    const adminLoginClose = document.getElementById('adminLoginClose');
+    const adminLoginForm = document.getElementById('adminLoginForm');
+    const adminPasswordInput = document.getElementById('adminPasswordInput');
+    const adminLoginError = document.getElementById('adminLoginError');
+
+    if (adminLoginTrigger) {
+      adminLoginTrigger.addEventListener('click', () => adminLoginModal.classList.remove('hidden'));
+    }
+    if (adminLoginClose) {
+      adminLoginClose.addEventListener('click', () => adminLoginModal.classList.add('hidden'));
+    }
+    if (adminLoginModal) {
+      adminLoginModal.addEventListener('click', (event) => {
+        if (event.target === adminLoginModal) {
+          adminLoginModal.classList.add('hidden');
+        }
+      });
+    }
+    if (adminLoginForm) {
+      adminLoginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (adminPasswordInput.value.trim() === '123') {
+          localStorage.setItem('admin_access', 'true');
+          window.location.href = 'admin.html';
+        } else {
+          adminLoginError.classList.remove('hidden');
+        }
+      });
+    }
+    if (adminPasswordInput) {
+      adminPasswordInput.addEventListener('input', () => adminLoginError.classList.add('hidden'));
+    }
+
+    // Navbar scroll effect
+    const navbar = document.querySelector('nav > div');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navbar.style.borderColor = 'rgba(255,255,255,0.15)';
+        navbar.style.background = 'rgba(10,10,10,0.95)';
+      } else {
+        navbar.style.borderColor = 'rgba(255,255,255,0.1)';
+        navbar.style.background = 'rgba(10,10,10,0.8)';
+      }
+    });
+  </script>
+</body>
+</html>

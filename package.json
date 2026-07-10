@@ -1,0 +1,12 @@
+{
+  "name": "ameer-shaji-gallery",
+  "version": "1.0.0",
+  "description": "Portfolio site with gallery admin and JSON persistence.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

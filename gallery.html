@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ameer Shaji Gallery</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #050505; color: #fff; }
+    html { scroll-behavior: smooth; }
+    .grid-bg {
+      background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #60A5FA, #A855F7, #F97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .card-glow { transition: all 0.4s ease; }
+    .card-glow:hover { box-shadow: 0 0 30px rgba(59,130,246,0.15), inset 0 0 20px rgba(59,130,246,0.05); }
+    .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
+    .mobile-menu.open { transform: translateX(0); }
+    .gallery-card { position: relative; overflow: hidden; border-radius: 1.25rem; cursor: pointer; }
+    .gallery-card img { transition: transform 0.35s ease, filter 0.35s ease; }
+    .gallery-card:hover img { transform: scale(1.04); filter: brightness(0.9) saturate(1.02); }
+    .gallery-card.is-active { border-color: rgba(96,165,250,0.9); box-shadow: 0 0 0 1px rgba(96,165,250,0.35); }
+    .gallery-caption {
+      position: static;
+      padding: 0.9rem 0.15rem 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      color: #f8fafc;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      letter-spacing: 0.01em;
+      text-align: left;
+      border-radius: 0.75rem;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      transform: none;
+      opacity: 1;
+      pointer-events: auto;
+      margin-top: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="fixed inset-0 grid-bg opacity-30 pointer-events-none"></div>
+  <nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-50">
+    <div class="bg-[#0A0A0A]/90 backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+          <span class="font-oswald font-bold text-sm">AS</span>
+        </div>
+        <div>
+          <div class="text-sm font-medium text-white">Ameer Shaji</div>
+          <div class="text-xs text-neutral-400">Gallery</div>
+        </div>
+      </a>
+      <div class="hidden md:flex items-center gap-3">
+        <a href="index.html" class="px-4 py-2 text-sm text-neutral-400 hover:text-white hover:bg-white/5 rounded-lg transition-all">Home</a>
+        <a href="index.html#about" class="px-4 py-2 text-sm text-neutral-400 hover:text-white hover:bg-white/5 rounded-lg transition-all">About</a>
+        <a href="index.html#impact" class="px-4 py-2 text-sm text-neutral-400 hover:text-white hover:bg-white/5 rounded-lg transition-all">Impact</a>
+        <a href="index.html#ventures" class="px-4 py-2 text-sm text-neutral-400 hover:text-white hover:bg-white/5 rounded-lg transition-all">Ventures</a>
+      </div>
+      <button id="mobileToggle" class="md:hidden text-white p-2">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobileMenu" class="mobile-menu fixed inset-0 bg-[#050505]/95 backdrop-blur-xl z-[60] flex flex-col items-center justify-center gap-6">
+    <button id="mobileClose" class="absolute top-6 right-6 text-white p-2">
+      <i data-lucide="x" class="w-6 h-6"></i>
+    </button>
+    <a href="index.html" class="text-2xl font-oswald font-light text-neutral-300 hover:text-white transition-colors mobile-link">Home</a>
+    <a href="index.html#about" class="text-2xl font-oswald font-light text-neutral-300 hover:text-white transition-colors mobile-link">About</a>
+    <a href="index.html#impact" class="text-2xl font-oswald font-light text-neutral-300 hover:text-white transition-colors mobile-link">Impact</a>
+    <a href="index.html#ventures" class="text-2xl font-oswald font-light text-neutral-300 hover:text-white transition-colors mobile-link">Ventures</a>
+    <a href="index.html#testimonials" class="text-2xl font-oswald font-light text-neutral-300 hover:text-white transition-colors mobile-link">Voices</a>
+  </div>
+
+  <main class="pt-28 pb-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <section class="text-center mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full mb-6">
+          <span class="text-[10px] font-medium text-neutral-400 uppercase tracking-widest">Gallery</span>
+        </div>
+        <h1 class="font-oswald font-light text-4xl md:text-6xl leading-tight mb-4">
+          Gallery of <span class="text-gradient">Impact</span>
+        </h1>
+        <p class="text-neutral-400 text-lg max-w-2xl mx-auto">
+          Browse the full collection of moments from Skoolguru events, workshops, talks, and community activities.
+        </p>
+      </section>
+
+      <div id="galleryAdminContainer" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"></div>
+
+      <div class="mt-16 text-center">
+        <a href="index.html" class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-all">
+          Back to Home
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    lucide.createIcons();
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileClose = document.getElementById('mobileClose');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    mobileToggle.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    async function renderGallery() {
+      const container = document.getElementById('galleryAdminContainer');
+      container.innerHTML = '<div class="text-neutral-400 col-span-full">Loading gallery...</div>';
+      try {
+        const response = await fetch('/api/gallery');
+        const items = await response.json();
+        container.innerHTML = items.map(item => `
+          <div class="gallery-card bg-[#0A0A0A] border border-white/10 shadow-lg" data-caption="${item.caption}">
+            <img src="${item.image}" alt="${item.caption}" class="w-full h-[340px] object-cover">
+            <div class="gallery-caption">${item.caption}</div>
+          </div>
+        `).join('');
+
+        container.querySelectorAll('.gallery-card').forEach(card => {
+          card.addEventListener('click', () => {
+            container.querySelectorAll('.gallery-card').forEach(item => item.classList.remove('is-active'));
+            card.classList.add('is-active');
+          });
+        });
+      } catch (error) {
+        container.innerHTML = '<div class="text-red-400 col-span-full">Unable to load gallery data.</div>';
+      }
+    }
+    renderGallery();
+  </script>
+</body>
+</html>
